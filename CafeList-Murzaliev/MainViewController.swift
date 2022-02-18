@@ -17,7 +17,26 @@ class MainViewController: UIViewController {
         view.register(CafeCollectionViewCell.self, forCellWithReuseIdentifier: "CafeCollectionViewCell")
         view.allowsSelection = false
         view.backgroundView = UIImageView(image: UIImage(named: "background"))
-      
+        return view
+    }()
+    
+    private let labelImage: UIImageView = {
+        let view  = UIImageView(image: UIImage(named: "Glovo_logo"))
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
+    private let leftButton: UIButton = {
+        let view = UIButton(type: .system)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .semibold, scale: .large)
+        view.setImage(UIImage(systemName: "heart", withConfiguration: largeConfig), for: .normal)
+        return view
+    }()
+    
+    private let rightButton: UIButton = {
+        let view = UIButton(type: .system)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .semibold, scale: .large)
+        view.setImage(UIImage(systemName: "arrowshape.turn.up.right", withConfiguration: largeConfig), for: .normal)
         return view
     }()
     
@@ -60,11 +79,10 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setViews()
+        setSubViews()
     }
     
-    private func setViews() {
+    private func setSubViews() {
         
         view.addSubview(cafeList)
         cafeList.delegate = self
@@ -73,20 +91,7 @@ class MainViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        
         //MARK: - Добавление элементов в NavigationBar
-        
-        let labelImage = UIImageView(image: UIImage(named: "Glovo_logo"))
-        labelImage.contentMode = .scaleAspectFit
-        
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .semibold, scale: .large)
-
-        let leftImage = UIImage(systemName: "heart", withConfiguration: largeConfig)
-        let rightImage = UIImage(systemName: "arrowshape.turn.up.right", withConfiguration: largeConfig)
-        let leftButton = UIButton(type: .system)
-        leftButton.setImage(leftImage, for: .normal)
-        let rightButton = UIButton(type: .system)
-        rightButton.setImage(rightImage, for: .normal)
         
         navigationController?.navigationBar.addSubview(rightButton)
         rightButton.snp.makeConstraints { make in
@@ -94,7 +99,6 @@ class MainViewController: UIViewController {
             make.top.equalToSuperview().offset(5)
             make.width.equalTo(35)
             make.height.equalTo(30)
-
         }
         
         navigationController?.navigationBar.addSubview(leftButton)
@@ -103,19 +107,14 @@ class MainViewController: UIViewController {
             make.top.equalToSuperview().offset(5)
             make.width.equalTo(35)
             make.height.equalTo(30)
-
         }
     
         navigationController?.navigationBar.addSubview(labelImage)
         labelImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.height.equalTo(40)
-            
         }
-        
     }
-
-
 }
 
 
@@ -131,20 +130,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CafeCollectionViewCell", for: indexPath) as! CafeCollectionViewCell
         cell.cafeLogo.image = UIImage(named: cafes[index].cafeLogo)
         cell.minPrice.text = cafes[index].minPrice
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let index = indexPath.item + 1
         if index % 7 == 0 {
-            return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 7)
-
+            return CGSize(width: view.layer.bounds.width, height: view.layer.bounds.height / 7)
         } else {
-            return CGSize(width: UIScreen.main.bounds.height / 7, height: UIScreen.main.bounds.height / 7)
-
+            return CGSize(width: view.layer.bounds.height / 7, height: view.layer.bounds.height / 7)
         }
     }
-    
-    
 }

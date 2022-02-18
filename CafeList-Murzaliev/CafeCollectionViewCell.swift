@@ -16,7 +16,6 @@ class CafeCollectionViewCell: UICollectionViewCell {
         let view = UIView()
         view.layer.borderColor = UIColor.lightGray.cgColor
         view.layer.borderWidth = 1
-        
         return view
     }()
     
@@ -34,13 +33,11 @@ class CafeCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    
     override func layoutSubviews() {
-        
-        setViews()
+        setSubViews()
     }
     
-    private func setViews() {
+    private func setSubViews() {
         
         addSubview(screenLayout)
         screenLayout.backgroundColor = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: CGFloat.random(in: 0...1))
@@ -54,7 +51,6 @@ class CafeCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(90)
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(-10)
-//            make.top.equalToSuperview().offset(10)
         }
         
         screenLayout.addSubview(minPrice)
